@@ -20,7 +20,7 @@ router.post('/login', function(req, res) {
   User.findOne({ email: req.body.email }, function (err, user) {
     if (err) return res.status(500).send('Error on the server.');
     if (!user) return res.status(404).send('No user found.');
-    
+
     // check if the password is valid
     var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
     if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
@@ -41,6 +41,26 @@ router.get('/logout', function(req, res) {
   res.status(200).send({ auth: false, token: null });
 });
 
+
+/**
+ * @api {post} /auth/register/ Request to register a new user
+ * @apiName register user
+ * @apiGroup User Managemennt
+ *
+ * @apiParam {string} username Username.
+ * @apiParam {string} email Email.
+ * @apiParam {string} password Password.
+ * @apiParam {string} firstName First name.
+ * @apiParam {string} lastName Last name.
+ * @apiParam {string} department Department.
+ * @apiParam {string} designation Designation.
+ * @apiParam {string} userroles User role.
+ * @apiParam {string} location Location.
+ *
+ *
+ * @apiSuccess {string} auth true/false.
+ * @apiSuccess {string} api access token.
+ */
 router.post('/register', function(req, res) {
 
   var hashedPassword = bcrypt.hashSync(req.body.password, 8);
@@ -49,7 +69,7 @@ router.post('/register', function(req, res) {
     name : req.body.name,
     email : req.body.email,
     password : hashedPassword
-  }, 
+  },
   function (err, user) {
     if (err) return res.status(500).send("There was a problem registering the user`.");
 

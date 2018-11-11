@@ -3,5 +3,5 @@
     "version": "0.1.0",
     "description": "GP Complaints System",
     "title": "GP Complaints System",
-    "url" : "https://test-giss-dev.herokuapp.com"
+    "url" : "http://localhost:3000"
   }
